@@ -43,6 +43,8 @@ export class playGameForest extends Scene {
 
   counterCoins = 0;
 
+  platformGroup;
+
 
 
 
@@ -64,6 +66,7 @@ export class playGameForest extends Scene {
     // this.bg_2.setOrigin(0, 0);
     // this.bg_2.setScrollFactor(0);
 
+
     this.addBackground("layerBackground_11", '11_background');
     this.addBackground("layerDistantClouds_10", '10_distant_clouds');
     this.addBackground("layerDistantClouds_9", '09_distant_clouds1');
@@ -75,35 +78,34 @@ export class playGameForest extends Scene {
     this.addBackground("layerDistantTrees_3", '03_distant_trees');
     this.addBackground("layerTreesAndBushes_2", '02_trees and bushes');
 
+    this.player = new BrownWarrior(this, 0, 0);
 
     this.bg_2 = this.add.tileSprite(0, 0, 180, 70, "LeanTech_Color");
     this.bg_2.setOrigin(0, 0);
     this.bg_2.setTileScale(0.4, 0.4);
     this.bg_2.setScrollFactor(0);
 
-    this.player = new BrownWarrior(this, 0, 0);
     //this.player = new HelmetWarrior(this, 0, 0);
 
     this.groupGround = this.physics.add.staticGroup();
 
     for (let index = 0; index < 6; index++) {
-      const ground = this.physics.add.staticImage(150 * index, 600, "01_ground").setScale(0.25).refreshBody();
+      const ground = this.physics.add.staticImage(150 * index, 500, "01_ground").setScale(0.25).refreshBody();
       this.groupGround.add(ground);
 
     }
 
-    for (let index = 9; index < 40; index++) {
-      const ground = this.physics.add.staticImage(150 * index + 50, 600, "01_ground").setScale(0.25).refreshBody();
-      this.groupGround.add(ground);
+    for (let index = 9; index < 130; index = index + 4) {
+      const isTop = Math.random() * 10;
+
+      if (isTop < 7) {
+        const ground = this.physics.add.staticImage(120 * index, 500, "01_ground").setScale(0.25).refreshBody();
+        this.groupGround.add(ground);
+
+      }
 
     }
 
-
-
-
-    //  Our static TileSprite that will just receive collide events
-    const staticBlock = this.add.tileSprite(1500, 400, 200, 30, 'crate');
-    this.physics.add.existing(staticBlock, true);
 
 
     this.anims.create({
@@ -113,15 +115,47 @@ export class playGameForest extends Scene {
       repeat: -1
     });
     this.coinGroup = this.physics.add.staticGroup();
+    this.platformGroup = this.physics.add.staticGroup();
 
 
-    for (let index = 4; index < 30; index++) {
+
+    for (let index = 1; index < 130; index = index + 4) {
       const isTop = Math.random() * 10;
+      const xBlock = 100 * index
+      const staticBlock = this.add.tileSprite(xBlock, 300, 210, 30, 'crate');
+      this.physics.add.existing(staticBlock, true);
 
-      const coin = this.physics.add.staticSprite(100 * index, isTop > 5 ? 390 : 510 | 0, "coin").setScale(0.4).refreshBody();
-      coin.play('coinMove');
+      this.platformGroup.add(staticBlock);
+      if (isTop > 5) {
 
-      this.coinGroup.add(coin);
+
+        const coin1 = this.physics.add.staticSprite(xBlock - 40, 260, "coin").setScale(0.4).refreshBody();
+        coin1.play('coinMove');
+        const coin2 = this.physics.add.staticSprite(xBlock, 260, "coin").setScale(0.4).refreshBody();
+        coin2.play('coinMove');
+        const coin3 = this.physics.add.staticSprite(xBlock + 40, 260, "coin").setScale(0.4).refreshBody();
+        coin3.play('coinMove');
+        this.coinGroup.add(coin1);
+        this.coinGroup.add(coin2);
+        this.coinGroup.add(coin3);
+
+      } else {
+
+        const xBlock = 100 * index
+
+        const coin1 = this.physics.add.staticSprite(xBlock - 50, 410, "coin").setScale(0.4).refreshBody();
+        coin1.play('coinMove');
+        const coin2 = this.physics.add.staticSprite(xBlock, 7 + 410, "coin").setScale(0.4).refreshBody();
+        coin2.play('coinMove');
+
+        this.coinGroup.add(coin1);
+        this.coinGroup.add(coin2);
+
+
+
+      }
+
+
 
     }
 
@@ -137,15 +171,20 @@ export class playGameForest extends Scene {
     this.myCam.startFollow(this.player);
 
     this.physics.add.collider(this.player, this.ground);
+    this.physics.add.collider(this.player, this.platformGroup, null,
+      (player: any, platform) => {
+        return player.body.velocity.y >= 0;
+      });
+
     this.physics.add.collider(this.player, this.groupGround);
     this.physics.add.overlap(this.player, this.coinGroup, this.collectCoin, null, this);
 
 
 
 
-    this.physics.add.collider(this.player, staticBlock);
+    //this.physics.add.collider(this.player, staticBlock);
 
-    this.scoreText = this.add.text(750, 50, 'Score: 0', { color: '#000', fontSize: 26 });
+    this.scoreText = this.add.text(650, 50, 'Score: 0', { color: '#000', fontSize: 26 });
     this.scoreText.setOrigin(0.5, 0.5);
     this.scoreText.scrollFactorX = 0;
 
@@ -173,7 +212,7 @@ export class playGameForest extends Scene {
     this[obj] = this.add.tileSprite(0, 0, game.config.width, game.config.height, name);
     this[obj].setOrigin(0, 0);
     this[obj].setScrollFactor(0);
-    this[obj].setTileScale(0.45, 0.45);
+    this[obj].setTileScale(0.37, 0.37);
 
   }
 

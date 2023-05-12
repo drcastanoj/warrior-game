@@ -9,8 +9,8 @@ export var game;
 window.onload = function () {
   const gameConfig: Phaser.Types.Core.GameConfig = {
     type: Phaser.AUTO,
-    width: 844,
-    height: 620,
+    width: 744,
+    height: 520,
     parent: 'main',
     input: {
       keyboard: true,

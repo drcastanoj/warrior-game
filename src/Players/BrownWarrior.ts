@@ -32,17 +32,13 @@ export default class BrownWarrior extends Phaser.Physics.Arcade.Sprite {
 
     this.scene.physics.world.enable(this);
 
-    // this.scene.collisionGroup.add(this);
 
-    //  this.body.setAllowDrag(true).setMaxVelocityX(170);
 
     this.scene.add
       .existing(this)
-      .setScale(1)
+      .setScale(0.8)
       .setBounce(0.2)
-      // .setCollideWorldBounds(true)
-      // .setDragX(Math.pow(16, 2))
-      // .play('walk')
+
       .setVelocityX(270)
       .setState(PlayerStates.STANDING);
   }
@@ -55,7 +51,7 @@ export default class BrownWarrior extends Phaser.Physics.Arcade.Sprite {
         break;
 
       case PlayerStates.JUMPING:
-        this.setVelocityY(-480).play("jump").playAudio("jump");
+        this.setVelocityY(-430).play("jump").playAudio("jump");
         break;
 
       case PlayerStates.STANDING:
