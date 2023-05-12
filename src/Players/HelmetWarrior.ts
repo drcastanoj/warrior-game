@@ -1,0 +1,172 @@
+import { Scene } from "phaser";
+import GameInputs from "../js/inputs/GameInputs";
+
+export enum PlayerStates {
+  FALLING,
+  STANDING,
+  JUMPING,
+  WALKING,
+}
+
+export default class HelmetWarrior extends Phaser.Physics.Arcade.Sprite {
+  public scene: Scene;
+  public body: Phaser.Physics.Arcade.Body;
+  private inputs: GameInputs;
+
+  constructor(scene: Scene, x: number, y: number) {
+    super(scene, x, y, "Walking_000");
+    this.inputs = new GameInputs(scene.input);
+    this.scene = scene;
+    const animations: Phaser.Types.Animations.Animation[] = [
+      { key: "stand", frames: this.scene.anims.generateFrameNumbers("warrior", { frames: [5] }), },
+      {
+        key: "walk",
+        frameRate: 25,
+        frames: this.scene.anims.generateFrameNumbers("warrior"),
+        repeat: -1,
+      },
+      { key: "jump", frames: this.scene.anims.generateFrameNumbers("warrior", { frames: [10] }) },
+    ];
+    animations.forEach((animation) => this.scene.anims.create(animation));
+
+    this.scene.physics.world.enable(this);
+
+    // this.scene.collisionGroup.add(this);
+
+    //  this.body.setAllowDrag(true).setMaxVelocityX(170);
+
+    this.scene.add
+      .existing(this)
+      .setScale(0.18)
+      .setBounce(0.2)
+      // .setCollideWorldBounds(true)
+      // .setDragX(Math.pow(16, 2))
+      .play('walkingWarriorHelmet')
+      .setVelocityX(270);
+    // .setState(PlayerStates.STANDING);
+  }
+
+  // public setState(value: PlayerStates) {
+  //   switch (value) {
+  //     case PlayerStates.FALLING:
+  //       this.play("jump");
+  //       break;
+
+  //     case PlayerStates.JUMPING:
+  //       this.setVelocityY(-560).play("jump").playAudio("jump");
+  //       break;
+
+  //     case PlayerStates.STANDING:
+  //       this
+  //         .setVelocityX(0)
+  //         .play("stand");
+  //       break;
+
+  //     case PlayerStates.WALKING:
+  //       this.setVelocityX(250).play("walk");
+  //       break;
+  //   }
+
+  //   return super.setState(value);
+  // }
+
+  // public preUpdate(time: number, delta: number) {
+  //   const { left, right, jump } = this.inputs;
+  //   const flipX = left && !right ? true : right ? false : this.flipX;
+  //   const directionX = -Number(left) + Number(right);
+  //   const accelerationX = directionX * Math.pow(16, 2);
+
+  //   switch (this.state) {
+  //     case PlayerStates.STANDING:
+  //       if (!this.body.onFloor()) {
+  //         this.setState(PlayerStates.FALLING);
+  //       } else if (jump) {
+  //         this.setState(PlayerStates.JUMPING);
+  //       } else if (left || right) {
+  //         this.setState(PlayerStates.WALKING);
+  //       }
+  //       break;
+
+  //     case PlayerStates.WALKING:
+  //       this.setFlipX(flipX)
+  //       //this.setAccelerationX(accelerationX);
+
+  //       if (!this.body.onFloor()) {
+  //         this.setState(PlayerStates.FALLING);
+  //       } else if (jump) {
+  //         this.setState(PlayerStates.JUMPING);
+  //       } else if (!left && !right) {
+
+  //         this.setState(PlayerStates.STANDING);
+
+  //       }
+  //       break;
+
+
+  //     case PlayerStates.JUMPING:
+  //       if (this.body.velocity.y > 0) {
+  //         this.setState(PlayerStates.FALLING);
+  //       } else if (this.body.velocity.y > 0 && (right || left)) {
+  //         this.setVelocityX(250);
+
+  //         this.setVelocityY(this.body.velocity.y);
+  //       } else if (!jump) {
+  //         this.setVelocityY(this.body.velocity.y);
+  //       }
+  //       break;
+  //     case PlayerStates.FALLING:
+  //       this.setFlipX(flipX)
+  //       console.log('estoy');
+
+  //       this.setAccelerationX(accelerationX);
+
+  //       if (this.body.onFloor()) {
+  //         if (left || right) {
+  //           this.setVelocityX(250);
+
+  //           this.setState(PlayerStates.WALKING);
+  //         } else {
+  //           this.setState(PlayerStates.STANDING);
+  //         }
+  //       }
+  //       break;
+  //   }
+
+  //   super.preUpdate(time, delta);
+  // }
+
+  // public setSize(height: number) {
+  //   super.setSize(16, height);
+
+  //   this.body.setOffset(0, this.height - height);
+
+  //   return this;
+  // }
+
+  public playAudio(key: string) {
+
+    return this;
+  }
+
+  preUpdate(time, delta): void {
+    const { left, right, jump } = this.inputs;
+
+    if (right) {
+      this.setVelocityX(250);
+
+    }
+    else if (jump && this.body.touching.down) {
+      this.setVelocityY(-360);
+    }
+    // else if (this.cursors.left.isDown) {
+    //   this.warrior.setVelocityX(-180);
+    // }
+    else {
+      this.setVelocityX(250);
+
+    }
+
+    super.preUpdate(time, delta);
+
+  }
+}

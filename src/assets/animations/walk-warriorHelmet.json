@@ -1,0 +1,144 @@
+{
+  "anims": [
+    {
+      "key": "walkingWarriorHelmet",
+      "type": "frame",
+      "frames": [
+        {
+          "key": "Walking_000",
+          "duration": 0,
+          "keyframe": false
+        },
+        {
+          "key": "Walking_001",
+          "duration": 0,
+          "keyframe": false
+        },
+        {
+          "key": "Walking_002",
+          "duration": 0,
+          "keyframe": false
+        },
+        {
+          "key": "Walking_003",
+          "duration": 0,
+          "keyframe": false
+        },
+        {
+          "key": "Walking_004",
+          "duration": 0,
+          "keyframe": false
+        },
+        {
+          "key": "Walking_005",
+          "duration": 0,
+          "keyframe": false
+        },
+        {
+          "key": "Walking_006",
+          "duration": 0,
+          "keyframe": false
+        },
+        {
+          "key": "Walking_007",
+          "duration": 0,
+          "keyframe": false
+        },
+        {
+          "key": "Walking_008",
+          "duration": 0,
+          "keyframe": false
+        },
+        {
+          "key": "Walking_009",
+          "duration": 0,
+          "keyframe": false
+        },
+        {
+          "key": "Walking_010",
+          "duration": 0,
+          "keyframe": false
+        },
+        {
+          "key": "Walking_011",
+          "duration": 0,
+          "keyframe": false
+        },
+        {
+          "key": "Walking_012",
+          "duration": 0,
+          "keyframe": false
+        },
+        {
+          "key": "Walking_013",
+          "duration": 0,
+          "keyframe": false
+        },
+        {
+          "key": "Walking_014",
+          "duration": 0,
+          "keyframe": false
+        },
+        {
+          "key": "Walking_015",
+          "duration": 0,
+          "keyframe": false
+        },
+        {
+          "key": "Walking_016",
+          "duration": 0,
+          "keyframe": false
+        },
+        {
+          "key": "Walking_017",
+          "duration": 0,
+          "keyframe": false
+        },
+        {
+          "key": "Walking_018",
+          "duration": 0,
+          "keyframe": false
+        },
+        {
+          "key": "Walking_019",
+          "duration": 0,
+          "keyframe": false
+        },
+        {
+          "key": "Walking_020",
+          "duration": 0,
+          "keyframe": false
+        },
+        {
+          "key": "Walking_021",
+          "duration": 0,
+          "keyframe": false
+        },
+        {
+          "key": "Walking_022",
+          "duration": 0,
+          "keyframe": false
+        },
+        {
+          "key": "Walking_023",
+          "duration": 0,
+          "keyframe": false
+        }
+      ],
+      "frameRate": 24,
+      "skipMissedFrames": true,
+      "repeat": -1,
+      "showBeforeDelay": false
+    }
+  ],
+  "globalTimeScale": 1,
+  "meta": {
+    "app": "Phaser Editor 2D v3",
+    "contentType": "Phaser v3 Animations"
+  },
+  "settings": {
+    "sourceLang": "JAVA_SCRIPT",
+    "esModule": false,
+    "generateCode": false
+  }
+}
